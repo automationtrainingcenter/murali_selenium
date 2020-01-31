@@ -24,7 +24,7 @@ public class NSEIndiaOne extends BrowserHelper{
 			String actCompanyCode = columns.get(0).getText();
 			// compare that company code with expected company code
 			if(actCompanyCode.equalsIgnoreCase(expCompanyCode)) {
-				// if matches retrieve share prive of the company which is in fourth column
+				// if matches retrieve share price of the company which is in fourth column
 				String sharePrice = columns.get(3).getText();
 				System.out.println("share price of "+actCompanyCode+" is Rs "+sharePrice);
 				//break the rows loop
