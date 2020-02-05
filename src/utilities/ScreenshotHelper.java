@@ -1,10 +1,17 @@
 package utilities;
 
+import java.awt.Dimension;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javax.imageio.ImageIO;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -38,11 +45,35 @@ public class ScreenshotHelper {
 		// permanent loaction
 		File destImg = new File(getFilePath(folderName, fileName));
 		try {
-			// copy the image fiel from RAM location to permanent location using FileHandler
+			// copy the image field from RAM location to permanent location using FileHandler
 			// class copy()
 			FileHandler.copy(srcImg, destImg);
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
+		}
+	}
+	
+	
+	public static void captureAlertScreenshot(String folderName, String fileName) {
+		/**
+		 * Selenium's TakeScreenshot interface can not capture the screen of a webpage with alert
+		 * so We have to use Java Robot class createScreenCapture() which belongs to java.awt package
+		 */
+		Robot robo;
+		try {
+			robo = new Robot();
+			// retrieve the size of the screen using getScreenSize() of ToolKit class
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			// create a Rectangle class object using above screenSize
+			Rectangle rect = new Rectangle(screenSize);
+			// capture the screenshot of webpage using above rectangle class object
+			BufferedImage bi = robo.createScreenCapture(rect);
+			// create a File class object with location where you want to save the screenshot permanently
+			File desImg = new File(getFilePath(folderName, fileName));
+			// save the captured screenshot to the above location using write() of ImageIO class
+			ImageIO.write(bi, "png", desImg);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
