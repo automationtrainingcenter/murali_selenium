@@ -3,6 +3,7 @@ package webtables_and_calendars;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import utilities.BrowserHelper;
@@ -27,12 +28,23 @@ public class NSEIndiaTwo extends BrowserHelper {
 			// compare actual company code with expected company code
 			if(actComanyCode.equals(expCompanyCode)) {
 				// if they match then click on link which is inside that column
-				columns.get(0).findElement(By.tagName("a")).click();
+				WebElement link = columns.get(0).findElement(By.tagName("a"));
+				
+				// bring that link to the view before click
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				js.executeScript("arguments[0].scrollIntoView()", link);
+				sleep(3000);
+				link.click();
 				break;
 			}
 		}
-		
+		sleep(5000);
 		closeBrowser();
+	}
+
+	private static void click() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
