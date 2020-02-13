@@ -29,6 +29,7 @@ public class WaitTypesDemo {
 		driver.findElement(By.cssSelector(".promoBtn")).click();
 		
 		WebElement promoInfoEle = wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("span.promoInfo")));
+	
 		String promoInfo = promoInfoEle.getText();
 		System.out.println("promo info is "+promoInfo);
 		
