@@ -31,7 +31,7 @@ public class ScreenshotHelper {
 		return System.getProperty("user.dir") + File.separator + folderName +File.separator + fileName+getTime()+".png";
 	}
 
-	public static void captureScreenshot(WebDriver driver, String folderName, String fileName) {
+	public static String captureScreenshot(WebDriver driver, String folderName, String fileName) {
 		// capture the screenshot of the web page
 		// to capture the screenshot selenium provides getScreenshotAs() with in
 		// TakesScreenshot
@@ -51,6 +51,8 @@ public class ScreenshotHelper {
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
+		
+		return destImg.getAbsolutePath();
 	}
 	
 	
